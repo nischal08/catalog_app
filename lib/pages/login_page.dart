@@ -71,9 +71,6 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                 ),
-                SizedBox(
-                  height: 20.0,
-                ),
                 TextFormField(
                   obscureText: true,
                   decoration: InputDecoration(
@@ -84,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                     if (value!.isEmpty) {
                       return 'Password cannot be empty';
                     } else if (value.length < 6) {
-                      return "Password length should be more than 5 characters.";
+                      return "Password length should be atleast 6 characters.";
                     }
                   },
                 ),
