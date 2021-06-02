@@ -1,19 +1,22 @@
+import 'package:catalog_app/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
+
 class HomePage extends StatelessWidget {
-  static  const routeName='/';
+  final int days = 30;
+  final String name = "Codepur";
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Scaffold(
-        appBar: AppBar(title: Text("Catalog app"),),
-        body: Center(
-          child: Container(
-            child: Text('Welcome to the catalog app'),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Catalog App"),
+      ),
+      body: Center(
+        child: Container(
+          child: Text("Welcome to $days days of flutter by $name"),
         ),
       ),
+      drawer: MyDrawer(),
     );
   }
 }
- 
