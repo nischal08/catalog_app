@@ -1,3 +1,4 @@
+import 'package:catalog_app/core/store.dart';
 import 'package:catalog_app/models/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,13 +31,24 @@ class _CartTotal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final _cart = CartModel();
+    print("rebuild happen");
+    final CartModel? _cart = (VxState.store as MyStore).cart;
     return SizedBox(
       height: 200,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          "\$${_cart.totalPrice}".text.xl5.color(context.theme.accentColor).make(),
+          VxConsumer(
+            builder: (context, store, _) {
+              return "\$${_cart!.totalPrice}"
+                  .text
+                  .xl5
+                  .color(context.theme.accentColor)
+                  .make();
+            },
+            mutations: {RemoveMutuation},
+            notifications: {},
+          ),
           30.widthBox,
           ElevatedButton(
             onPressed: () {
@@ -59,23 +71,26 @@ class _CartTotal extends StatelessWidget {
 }
 
 class _CartList extends StatelessWidget {
-  const _CartList({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final _cart = CartModel();
-    return ListView.builder(
-      itemCount: _cart.items.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          leading: Icon(Icons.done),
-          trailing: IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.remove_circle_outline),
-          ),
-          title: "${_cart.items[index].name}".text.make(),
-        );
-      },
-    );
+    VxState.watch(context, on: [RemoveMutuation]);
+    final CartModel? _cart = (VxState.store as MyStore).cart;
+    return _cart!.items.isEmpty
+        ? "Nothing to show".text.xl3.makeCentered()
+        : ListView.builder(
+            itemCount: _cart.items.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                leading: Icon(Icons.done),
+                trailing: IconButton(
+                  onPressed: () {
+                    RemoveMutuation(_cart.items[index]);
+                  },
+                  icon: Icon(Icons.remove_circle_outline),
+                ),
+                title: "${_cart.items[index].name}".text.make(),
+              );
+            },
+          );
   }
 }
