@@ -4,11 +4,13 @@ import 'package:catalog_app/pages/home_detail_page.dart';
 import 'package:catalog_app/pages/login_page.dart';
 import 'package:catalog_app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'pages/home_page.dart';
 import 'widgets/themes.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(
     VxState(
       store: MyStore(),
@@ -25,6 +27,12 @@ class MyApp extends StatelessWidget {
       theme: MyTheme.lightTheme(context),
       darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
+      // routeInformationParser: VxInformationParser(),
+      // routerDelegate:VxNavigator(routes: {
+      //   "/": (_,__) => MaterialPage(child: LoginPage()),
+      //   MyRoutes.homeRoute:  (_, __) => MaterialPage(child: HomePage()),
+        
+      // }) ,
       initialRoute: MyRoutes.homeRoute,
       routes: {
         "/": (context) => LoginPage(),

@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: context.canvasColor,
         body: SafeArea(
           child: Container(
-            padding: Vx.mOnly(left: 32, right: 32, top: 32),
+            padding: Vx.mOnly(left: 32, right: 32, top:Vx.isAndroid? 32:10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
