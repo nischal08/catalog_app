@@ -85,13 +85,14 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             catalog!.name.text.lg.color(context.accentColor).bold.make(),
-            catalog!.desc.text.textStyle(context.captionStyle!).make(),
+            SizedBox(width: MediaQuery.of(context).size.width*0.40, child: catalog!.desc.text.textStyle(context.captionStyle!).make()),
             10.heightBox,
             ButtonBar(
               buttonPadding: EdgeInsets.zero,
               alignment: MainAxisAlignment.spaceBetween,
               children: [
                 "\$${catalog!.price}".text.bold.make(),
+              SizedBox(width: 60,),
                 AddToCart(catalog),
               ],
             )
